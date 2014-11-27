@@ -1,0 +1,33 @@
+{
+  "name": "jsed",
+  "version": "0.0.1",
+  "description": "JavaScript stream editor: transform JSON with JavaScript via the command line",
+  "keywords": [
+    "javascript",
+    "stream",
+    "editor",
+    "sed"
+  ],
+  "homepage": "https://github.com/chbrown/jsed",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/chbrown/jsed.git"
+  },
+  "bugs": {
+    "email": "Christopher Brown <io@henrian.com>",
+    "url": "https://github.com/chbrown/jsed/issues"
+  },
+  "license": "MIT",
+  "author": "Christopher Brown <io@henrian.com> (http://henrian.com)",
+  "dependencies": {
+    "optimist": "*",
+    "streaming": ">=0.3.12"
+  },
+  "devDependencies": {
+  },
+  "bin": {
+    "jsed": "./jsed"
+  },
+  "scripts": {
+  }
+}

@@ -1,0 +1,72 @@
+#!/usr/bin/env node
+/*jslint node: true */
+var fs = require('fs');
+var path = require('path');
+var stream = require('stream');
+var util = require('util');
+
+var streaming = require('streaming');
+
+var optimist = require('optimist')
+  .usage([
+    "Usage: jsed -f uniq.js <input.json >output.json",
+    '',
+    'JavaScript stream editor.',
+    '',
+    'Transform newline-separated JSON objects with JavaScript.',
+    '',
+    'The given file should be a Node.js-compatible commonjs module that',
+    'exports, a single function. That function should take a single object',
+    'and return a single object.',
+    '* return `undefined` to discard the current input',
+    "* all other returned values will be JSON.stringify'd",
+  ].join('\n'))
+  .describe({
+    file: 'JavaScript file to load mapper function from',
+    help: 'print this help message',
+    verbose: 'print more output',
+  })
+  .boolean([
+    'help',
+    'verbose',
+  ])
+  .demand([
+    'file'
+  ])
+  .alias({
+    file: 'f',
+    help: 'h',
+    verbose: 'v',
+  });
+
+var argv = optimist.argv;
+
+if (argv.help) {
+  optimist.showHelp();
+}
+else if (process.stdin.isTTY) {
+  throw new Error('JSON must be piped in on STDIN');
+}
+else {
+  process.stdin.on('error', function(err) {
+    console.error('STDIN error: %s', err);
+  });
+
+  // 1. parser
+  var parser = new streaming.json.Parser().on('error', function(err) {
+    console.error('Failed to parse JSON input: %s', err.stack);
+  });
+
+  // 2. transform
+  var func = require(path.join(process.cwd(), argv.file));
+  var mapper = new streaming.Mapper(func).on('error', function(err) {
+    console.error('Failed to execute mapper function: %s', err);
+  });
+
+  // 3. stringifier
+  var stringifier = new streaming.json.Stringifier().on('error', function(err) {
+    console.error('Failed to stringify output to JSON: %s', err);
+  });
+
+  process.stdin.pipe(parser).pipe(mapper).pipe(stringifier).pipe(process.stdout);
+}
