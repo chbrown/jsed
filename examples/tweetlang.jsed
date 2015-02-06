@@ -1,0 +1,13 @@
+#!/usr/bin/env jsed -f
+function flatten(s) { return s.replace(/\s+/g, " "); }
+
+module.exports = function(tweet) {
+  if (!tweet.delete) {
+    return {
+      user: tweet.user.screen_name,
+      user_lang: tweet.user.lang,
+      tweet: flatten(tweet.text),
+      tweet_lang: tweet.lang
+    };
+  }
+};
