@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/*jslint node: true */
 var fs = require('fs');
 var path = require('path');
 var stream = require('stream');
@@ -7,16 +6,16 @@ var util = require('util');
 
 var streaming = require('streaming');
 
-var optimist = require('optimist')
+var yargs = require('yargs')
   .usage([
-    "Usage: jsed -f uniq.js <input.json >output.json",
+    'Usage: jsed -f uniq.js <input.json >output.json',
     '',
     'JavaScript stream editor.',
     '',
     'Transform newline-separated JSON objects with JavaScript.',
     '',
     'The given file should be a Node.js-compatible commonjs module that',
-    'exports, a single function. That function should take a single object',
+    'exports a single function. That function should take a single object',
     'and return a single object.',
     '* return `undefined` to discard the current input',
     "* all other returned values will be JSON.stringify'd",
@@ -25,13 +24,12 @@ var optimist = require('optimist')
     file: 'JavaScript file to load mapper function from',
     help: 'print this help message',
     verbose: 'print more output',
+    version: 'print jsed version and exit',
   })
   .boolean([
     'help',
     'verbose',
-  ])
-  .demand([
-    'file'
+    'version',
   ])
   .alias({
     file: 'f',
@@ -39,15 +37,22 @@ var optimist = require('optimist')
     verbose: 'v',
   });
 
-var argv = optimist.argv;
+var argv = yargs.argv;
 
 if (argv.help) {
-  optimist.showHelp();
+  yargs.showHelp();
+}
+else if (argv.version) {
+  console.log(require('./package').version);
 }
 else if (process.stdin.isTTY) {
   throw new Error('JSON must be piped in on STDIN');
 }
 else {
+  argv = yargs.demand([
+    'file'
+  ]).argv;
+
   process.stdin.on('error', function(err) {
     console.error('STDIN error: %s', err);
   });
@@ -58,7 +63,11 @@ else {
   });
 
   // 2. transform
-  var func = require(path.join(process.cwd(), argv.file));
+  var func_filepath = argv.file;
+  if (func_filepath[0] !== '/') {
+    func_filepath = path.join(process.cwd(), func_filepath);
+  }
+  var func = require(func_filepath);
   var mapper = new streaming.Mapper(func).on('error', function(err) {
     console.error('Failed to execute mapper function: %s', err);
   });

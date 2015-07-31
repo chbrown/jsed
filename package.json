@@ -20,7 +20,7 @@
   "license": "MIT",
   "author": "Christopher Brown <io@henrian.com> (http://henrian.com)",
   "dependencies": {
-    "optimist": "*",
+    "yargs": "*",
     "streaming": ">=0.3.12"
   },
   "devDependencies": {
