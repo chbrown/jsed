@@ -1,6 +1,6 @@
 {
   "name": "jsed",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "JavaScript stream editor: transform JSON with JavaScript via the command line",
   "keywords": [
     "javascript",
@@ -23,11 +23,9 @@
     "yargs": "*",
     "streaming": ">=0.3.12"
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "bin": {
     "jsed": "./jsed"
   },
-  "scripts": {
-  }
+  "scripts": {}
 }
