@@ -21,11 +21,9 @@
   "author": "Christopher Brown <io@henrian.com> (http://henrian.com)",
   "dependencies": {
     "yargs": "*",
-    "streaming": ">=0.3.12"
+    "streaming": "0.3.15"
   },
-  "devDependencies": {},
   "bin": {
     "jsed": "./jsed"
-  },
-  "scripts": {}
+  }
 }

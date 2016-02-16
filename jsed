@@ -1,9 +1,5 @@
 #!/usr/bin/env node
-var fs = require('fs');
 var path = require('path');
-var stream = require('stream');
-var util = require('util');
-
 var streaming = require('streaming');
 
 var yargs = require('yargs')
@@ -49,9 +45,7 @@ else if (process.stdin.isTTY) {
   throw new Error('JSON must be piped in on STDIN');
 }
 else {
-  argv = yargs.demand([
-    'file'
-  ]).argv;
+  argv = yargs.demand(['file']).argv;
 
   process.stdin.on('error', function(err) {
     console.error('STDIN error: %s', err);
