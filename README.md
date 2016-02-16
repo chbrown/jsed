@@ -1,5 +1,7 @@
 # jsed: JavaScript Stream Editor
 
+[![npm version](https://badge.fury.io/js/jsed.svg)](https://www.npmjs.com/package/jsed)
+
     npm install -g jsed
 
 
