@@ -2,7 +2,7 @@
 var path = require('path');
 var streaming = require('streaming');
 
-var yargs = require('yargs')
+var argvparser = require('optimist')
   .usage([
     'Usage: jsed -f uniq.js <input.json >output.json',
     '',
@@ -33,10 +33,10 @@ var yargs = require('yargs')
     verbose: 'v',
   });
 
-var argv = yargs.argv;
+var argv = argvparser.argv;
 
 if (argv.help) {
-  yargs.showHelp();
+  argvparser.showHelp();
 }
 else if (argv.version) {
   console.log(require('./package').version);
@@ -45,7 +45,7 @@ else if (process.stdin.isTTY) {
   throw new Error('JSON must be piped in on STDIN');
 }
 else {
-  argv = yargs.demand(['file']).argv;
+  argv = argvparser.demand(['file']).argv;
 
   process.stdin.on('error', function(err) {
     console.error('STDIN error: %s', err);

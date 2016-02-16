@@ -20,8 +20,8 @@
   "license": "MIT",
   "author": "Christopher Brown <io@henrian.com> (http://henrian.com)",
   "dependencies": {
-    "yargs": "*",
-    "streaming": "0.3.15"
+    "optimist": "*",
+    "streaming": "^0.3.14"
   },
   "bin": {
     "jsed": "./jsed"
