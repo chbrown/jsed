@@ -20,7 +20,7 @@
   "license": "MIT",
   "author": "Christopher Brown <io@henrian.com> (http://henrian.com)",
   "dependencies": {
-    "optimist": "*",
+    "optimist": "^0.6.1",
     "streaming": "^0.3.14"
   },
   "bin": {
