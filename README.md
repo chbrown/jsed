@@ -1,6 +1,6 @@
 # jsed: JavaScript Stream Editor
 
-[![npm version](https://badge.fury.io/js/jsed.svg)](https://www.npmjs.com/package/jsed)
+[![latest version published to npm](https://badge.fury.io/js/jsed.svg)](https://www.npmjs.com/package/jsed)
 
     npm install -g jsed
 
@@ -38,4 +38,5 @@ Or if you don't want to have to `chmod +x tweetlang.jsed`, call:
 
 ## License
 
-Copyright 2014 Christopher Brown. [MIT Licensed](http://opensource.org/licenses/MIT).
+Copyright 2014 Christopher Brown.
+[MIT Licensed](https://chbrown.github.io/licenses/MIT/#2014).
