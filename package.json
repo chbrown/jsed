@@ -1,6 +1,6 @@
 {
   "name": "jsed",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "JavaScript stream editor: transform JSON with JavaScript via the command line",
   "keywords": [
     "javascript",
